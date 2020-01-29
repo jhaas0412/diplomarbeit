@@ -1,0 +1,38 @@
+header {
+  background: white;
+}
+
+.logo {
+  font-weight: bold;
+  color: black;
+  text-align: left;
+  float: left;
+}
+
+img {
+  height: 7vw;
+}
+
+nav {
+  justify-self: right;
+  margin-bottom: 0em;
+}
+nav ul {
+  list-style-type: none;;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 80%;
+}
+nav ul li {
+  float: right;
+}
+nav ul li a {
+  padding: 1.5em;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: black;
+}
+nav ul li a:hover {
+  background: darkgrey;
+}

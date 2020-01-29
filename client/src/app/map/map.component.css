@@ -1,0 +1,10 @@
+.table{
+  widows: 50%;
+  width: 50%;
+  float: left;
+}
+
+.map{
+  width: 50%;
+  float: right;
+}

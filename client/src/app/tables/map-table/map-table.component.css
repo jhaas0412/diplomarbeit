@@ -1,0 +1,21 @@
+.full-width-table {
+  width: 100%;
+}
+
+.map-table{
+  width: 70%;
+}
+
+.highLight{
+  background: yellow;
+}
+
+.mat-column-speciesCount{
+  border-right: 1px solid lightgrey;
+  align-self: stretch;
+}
+
+.mat-column-species{
+  padding-left: 3%;
+}
+

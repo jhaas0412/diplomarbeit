@@ -7,7 +7,7 @@ import {NavComponent} from "./nav/nav.component";
 import {NavService} from "./nav/nav.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {LocationStrategy, PathLocationStrategy} from "@angular/common";
 import { NotesComponent } from './notes/notes.component';
 import NotesService from "./services/notes.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,7 +54,7 @@ import { AdditionalPropertiesTableComponent } from './tables/additional-properti
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, NavService, NotesService],
+  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy}, NavService, NotesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

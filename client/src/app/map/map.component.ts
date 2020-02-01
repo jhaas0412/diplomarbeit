@@ -4,7 +4,6 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 
-
 declare var ol: any;
 
 @Component({
@@ -14,85 +13,89 @@ declare var ol: any;
 })
 
 // table programmieren mit dc-js cross filter
-
 export class MapComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  latitude: number = 48.409140;
+  latitude: number = 48.40914;
   longitude: number = 15.612974;
 
   map: any;
 
   ngOnInit() {
+    const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
-    this.map = new ol.Map({
-      target: 'map',
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
-      ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([15.612974, 48.409140]),
-        zoom: 13
-      })
+    // Map erstellen, Center in Spitz an der Donau
+    mapboxgl.accessToken =
+      'pk.eyJ1IjoianVsaWEwNDEyIiwiYSI6ImNrNjExYTBkMDBjdjQzZm9ha3VnZHZ6NzQifQ.4Hw-RyHSXwM7oNDxDbcu7w';
+    const map = new mapboxgl.Map({
+      container: 'mapbox',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      zoom: 9,
+      center: [15.42558, 48.35422]
     });
 
- /*   var markers = new ol.Layer.Markers( 'Markers' );
-    this.map.addLayer(markers);
+    map.on('load', function() {
+      // Add zoom and rotation controls to the map. FUNKTIONIERT NICHT
+      map.addControl(new mapboxgl.NavigationControl());
 
-  var size = new ol.Size(21, 25);
-  var offset = new ol.Pixel(-(size.w / 2), -size.h);
-  var icon = new ol.Icon('http://www.openlayers.org/dev/img/marker.png', size, offset);
-  markers.addMarker(new ol.Marker(new ol.LonLat(15.612974, 48.409140), icon));
-  markers.addMarker(new ol.Marker(new ol.LonLat(15.7, 48.5), icon.clone()));
-*/
-    // Vector Layer
+      /* Image: An image is loaded and added to the map. */
+      map.loadImage('images/dot.png', function(error, image) {
+        if (error) {
+          throw error;
+        }
 
-/*    const EUCountries = new ol.layer.VectorImage({
-      source: new ol.source.Vector({
-        url: 'vectors/map.geojson',
-        format: new ol.format.GeoJSON()
-      }),
-      visible: true,
-      title: 'EUCountries'
+        // Marker zur Map hinzufügen
+        map.addImage('custom-marker', image);
+        map.addLayer({
+          id: 'markers',
+          type: 'symbol',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature',
+                  properties: {
+                    description: '<strong>Krems an der Donau</strong>'
+                  },
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [15.613, 48.41]
+                  }
+                }
+              ]
+            }
+          },
+          layout: {
+            'icon-image': 'custom-marker'
+          }
+        });
+      });
+
+
+      // Wachau-Polygon zur Map hinzufügen
+      map.addSource('wachau', {
+        type: 'geojson',
+        // tslint:disable-next-line: max-line-length
+        data:
+          'https://sdi.noe.gv.at/at.gv.noe.geoserver/OGD/wfs?request=GetFeature&version=1.1.0&typeName=OGD:RRU_UNESCO&srsName=EPSG:4326&outputFormat=application/json'
+      });
+
+      map.addLayer({
+        id: 'maine',
+        type: 'line',
+        source: 'wachau',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#888',
+          'line-width': 2
+        }
+      });
     });
-
-    this.map.addLayer(EUCountries);*/
-
-    //mapbox.js
-    
-     const krems = new ol.layer.VectorImage({
-      source: new ol.source.Vector({
-        url: 'vectors/krems.geojson',
-        format: new ol.format.GeoJSON()
-      }),
-      visible: true,
-      title: 'Krems'
-    });
-
-    krems.setZIndex(1000);
-    this.map.addLayer(krems);
-
-
-    // Vector Feature Popup Logic
-
-    this.map.on('click', function(e){
-      console.log(e);
-      this.map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
-        console.log(feature)
-      })
-    });
-
-   /* const source = new ol.source.vector({});
-    const layer = new ol.layer.vector({ source: source});
-    this.map.addLayer(layer);
-    const marker = new ol.Feature({
-      geometry: new ol.geom.Point(fromLonLat([15.612974, 48.409140]))
-    });
-
-    source.addFeature(marker);*/
-
   }
 }
+

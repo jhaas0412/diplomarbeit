@@ -1,15 +1,14 @@
-.search-bar {
-  margin: 25px 0px;
-  text-align: center;
-}
-
 input {
   height: 50%;
   width: 50%;
 }
 
+.search-input {
+  height: 100%;
+}
 .search-button {
-  width: 2%;
+  width: 32px;
+  height: 32px;
   margin-left: 1%;
 }
 

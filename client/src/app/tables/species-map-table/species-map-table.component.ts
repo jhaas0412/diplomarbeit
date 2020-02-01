@@ -2,24 +2,24 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { MapTableDataSource, MapTableItem } from './map-table-datasource';
+import { SpeciesMapTableDataSource, SpeciesMapTableItem } from './species-map-table-datasource';
 
 @Component({
-  selector: 'map-table',
-  templateUrl: './map-table.component.html',
-  styleUrls: ['./map-table.component.css']
+  selector: 'app-species-map-table',
+  templateUrl: './species-map-table.component.html',
+  styleUrls: ['./species-map-table.component.css']
 })
-export class MapTableComponent implements AfterViewInit, OnInit {
+export class SpeciesMapTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatTable, {static: false}) table: MatTable<MapTableItem>;
-  dataSource: MapTableDataSource;
+  @ViewChild(MatTable, {static: false}) table: MatTable<SpeciesMapTableItem>;
+  dataSource: SpeciesMapTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['group', 'speciesCount'];
+  displayedColumns = ['species', 'recordCount'];
 
   ngOnInit() {
-    this.dataSource = new MapTableDataSource();
+    this.dataSource = new SpeciesMapTableDataSource();
   }
 
   onRowClicked(row) {

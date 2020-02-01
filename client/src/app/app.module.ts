@@ -25,6 +25,7 @@ import { EventTableComponent } from './tables/event-table/event-table.component'
 import { TaxonomyTableComponent } from './tables/taxonomy-table/taxonomy-table.component';
 import { GeospatialTableComponent } from './tables/geospatial-table/geospatial-table.component';
 import { AdditionalPropertiesTableComponent } from './tables/additional-properties-table/additional-properties-table.component';
+import { SpeciesMapTableComponent } from './tables/species-map-table/species-map-table.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AdditionalPropertiesTableComponent } from './tables/additional-properti
     EventTableComponent,
     TaxonomyTableComponent,
     GeospatialTableComponent,
-    AdditionalPropertiesTableComponent
+    AdditionalPropertiesTableComponent,
+    SpeciesMapTableComponent
   ],
   imports: [
     BrowserModule,

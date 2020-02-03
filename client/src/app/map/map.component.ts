@@ -38,6 +38,9 @@ export class MapComponent implements OnInit {
       // Add zoom and rotation controls to the map. FUNKTIONIERT NICHT
       map.addControl(new mapboxgl.NavigationControl());
 
+      // Add resize for loaded map so it doesnt look broken ;)
+      map.resize();
+
       /* Image: An image is loaded and added to the map. */
       map.loadImage('images/dot.png', function(error, image) {
         if (error) {

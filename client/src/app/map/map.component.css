@@ -1,0 +1,16 @@
+.table, .map {
+    width: 50%;
+}
+.table {
+    margin-bottom: 0;
+}
+
+/* Media Query for mobile only */
+@media (max-width: 768px) {
+    .table, .map {
+        width: 100%;
+    }
+    #mapbox {
+        min-height: 500px; /* Change this if this is too tall */
+    }
+}

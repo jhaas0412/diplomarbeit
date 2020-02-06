@@ -10,7 +10,6 @@ import { SpeciesMapTableDataSource, SpeciesMapTableItem } from './species-map-ta
   styleUrls: ['./species-map-table.component.css']
 })
 export class SpeciesMapTableComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<SpeciesMapTableItem>;
   dataSource: SpeciesMapTableDataSource;
@@ -22,13 +21,8 @@ export class SpeciesMapTableComponent implements AfterViewInit, OnInit {
     this.dataSource = new SpeciesMapTableDataSource();
   }
 
-  onRowClicked(row) {
-    console.log(row);
-  }
-
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
 }

@@ -10,7 +10,6 @@ import { MapTableDataSource, MapTableItem } from './map-table-datasource';
   styleUrls: ['./map-table.component.css']
 })
 export class MapTableComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<MapTableItem>;
   dataSource: MapTableDataSource;
@@ -28,7 +27,6 @@ export class MapTableComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
 }

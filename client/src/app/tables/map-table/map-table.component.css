@@ -3,11 +3,17 @@
 }
 
 .map-table{
-  width: 100%;
+  width: 70%;
+  margin-right: 0%;
+  text-align: center;
 }
 
 .highLight{
   background: yellow;
+}
+
+.mat-header{
+  text-align: center;
 }
 
 .mat-column-speciesCount{
@@ -23,4 +29,3 @@
   border-color: gray;
   background: rgb(161, 147, 147);
 }
-

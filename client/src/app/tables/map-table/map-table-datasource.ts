@@ -19,6 +19,10 @@ const EXAMPLE_DATA: MapTableItem[] = [
   {group: 'Tiere', speciesCount: 1000},
   {group: 'Tiere', speciesCount: 1000},
   {group: 'Tiere', speciesCount: 1000},
+  {group: 'Tiere', speciesCount: 1000},
+  {group: 'Tiere', speciesCount: 1000},
+  {group: 'Tiere', speciesCount: 1000},
+  {group: 'Tiere', speciesCount: 1000},
   {group: 'Pflanzen', speciesCount: 50},
   {group: 'Pflanzen', speciesCount: 50},
   {group: 'Pflanzen', speciesCount: 50},
@@ -38,7 +42,6 @@ const EXAMPLE_DATA: MapTableItem[] = [
  */
 export class MapTableDataSource extends DataSource<MapTableItem> {
   data: MapTableItem[] = EXAMPLE_DATA;
-  paginator: MatPaginator;
   sort: MatSort;
 
   constructor() {
@@ -55,12 +58,11 @@ export class MapTableDataSource extends DataSource<MapTableItem> {
     // stream for the data-table to consume.
     const dataMutations = [
       observableOf(this.data),
-      this.paginator.page,
       this.sort.sortChange
     ];
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
+      return this.getSortedData([...this.data]);
     }));
   }
 
@@ -70,14 +72,6 @@ export class MapTableDataSource extends DataSource<MapTableItem> {
    */
   disconnect() {}
 
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getPagedData(data: MapTableItem[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
-  }
 
   /**
    * Sort the data (client-side). If you're using server-side sorting,

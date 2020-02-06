@@ -12,31 +12,31 @@ export interface SpeciesMapTableItem {
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: SpeciesMapTableItem[] = [
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'Abax Ater', recordCount: 2},
-  {species: 'blablabla', recordCount: 3},
-  {species: 'blablabla', recordCount: 3},
-  {species: 'blablabla', recordCount: 3},
-  {species: 'blablabla', recordCount: 3},
-  {species: 'blablabla', recordCount: 3},
-  {species: 'blablabla', recordCount: 3},
-  {species: 'blablabla', recordCount: 3}
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Butterfly', recordCount: 100},
+  {species: 'Fish', recordCount: 39},
+  {species: 'Fish', recordCount: 39},
+  {species: 'Fish', recordCount: 39},
+  {species: 'Fish', recordCount: 39},
+  {species: 'Fish', recordCount: 39},
+  {species: 'Fish', recordCount: 39}
 ];
 
 /**
- * Data source for the MapTable view. This class should
+ * Data source for the SpeciesMapTable view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
 export class SpeciesMapTableDataSource extends DataSource<SpeciesMapTableItem> {
   data: SpeciesMapTableItem[] = EXAMPLE_DATA;
-  paginator: MatPaginator;
   sort: MatSort;
 
   constructor() {
@@ -53,12 +53,11 @@ export class SpeciesMapTableDataSource extends DataSource<SpeciesMapTableItem> {
     // stream for the data-table to consume.
     const dataMutations = [
       observableOf(this.data),
-      this.paginator.page,
       this.sort.sortChange
     ];
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
+      return this.getSortedData([...this.data]);
     }));
   }
 
@@ -67,15 +66,6 @@ export class SpeciesMapTableDataSource extends DataSource<SpeciesMapTableItem> {
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {}
-
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getPagedData(data: SpeciesMapTableItem[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
-  }
 
   /**
    * Sort the data (client-side). If you're using server-side sorting,
@@ -89,8 +79,8 @@ export class SpeciesMapTableDataSource extends DataSource<SpeciesMapTableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'species': return compare(+a.species, +b.species, isAsc);
-        case 'recordCount': return compare(+a.recordCount, +b.recordCount, isAsc);
+        case 'name': return compare(a.species, b.species, isAsc);
+        case 'id': return compare(+a.recordCount, +b.recordCount, isAsc);
         default: return 0;
       }
     });
@@ -101,4 +91,3 @@ export class SpeciesMapTableDataSource extends DataSource<SpeciesMapTableItem> {
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
-

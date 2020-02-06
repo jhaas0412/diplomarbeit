@@ -1,13 +1,21 @@
-.table, .map {
-    width: 50%;
+.table, .speciestable {
+    width: 25%;
+    margin-left: 0%;
+    float: left;
 }
+
+.map {
+  width:50%;
+  height: 30%;
+}
+
 .table {
     margin-bottom: 0;
 }
 
 /* Media Query for mobile only */
 @media (max-width: 768px) {
-    .table, .map {
+    .table, .map, .speciestable{
         width: 100%;
     }
     #mapbox {

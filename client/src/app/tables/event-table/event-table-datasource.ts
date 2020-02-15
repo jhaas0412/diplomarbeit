@@ -3,15 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { RecordReqService } from 'src/app/services/record-req.service';
+import { Species } from 'src/app/models/Species';
+import { ProfileTableItem } from 'src/app/models/ProfileTableItem';
 
-// TODO: Replace this with your own data model type
-export interface EventTableItem {
-  description: string;
-  value: string;
-}
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: EventTableItem[] = [
+const EXAMPLE_DATA: ProfileTableItem[] = [
   {description: 'Data partner', value: 'Hydrogen'},
   {description: 'Data partner', value: 'Hydrogen'},
   {description: 'Data partner', value: 'Hydrogen'},
@@ -26,11 +24,16 @@ const EXAMPLE_DATA: EventTableItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class EventTableDataSource extends DataSource<EventTableItem> {
-  data: EventTableItem[] = EXAMPLE_DATA;
+export class EventTableDataSource extends DataSource<ProfileTableItem> {
+  data: ProfileTableItem[] = EXAMPLE_DATA;
+  tabledata: ProfileTableItem[];
 
-  constructor() {
+  speciesdata: any;
+  species: Species;
+
+  constructor(private tableData: ProfileTableItem[]) {
     super();
+    this.tableData = tableData;
   }
 
   /**
@@ -38,15 +41,16 @@ export class EventTableDataSource extends DataSource<EventTableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<EventTableItem[]> {
+  connect(): Observable<ProfileTableItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
+
     const dataMutations = [
-      observableOf(this.data)
+      observableOf(this.tableData)
     ];
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.data;
+      return this.tableData;
     }));
   }
 

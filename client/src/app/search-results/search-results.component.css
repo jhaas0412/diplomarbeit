@@ -1,0 +1,15 @@
+.container {
+  height: 700px;
+  margin-top: 30px;
+}
+
+.row {
+  height: 100%;
+  background-color: darkgrey;
+}
+
+.col {
+  height: 100%;
+  border:2px;
+  border-color: black;
+}

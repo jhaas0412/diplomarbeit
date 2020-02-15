@@ -8,8 +8,6 @@ import {NavService} from "./nav/nav.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
 import {LocationStrategy, PathLocationStrategy} from "@angular/common";
-import { NotesComponent } from './notes/notes.component';
-import NotesService from "./services/notes.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from "@angular/material/table";
 import { PictureComponent } from './picture/picture.component';
@@ -24,15 +22,15 @@ import { DatasetTableComponent } from './tables/dataset-table/dataset-table.comp
 import { EventTableComponent } from './tables/event-table/event-table.component';
 import { TaxonomyTableComponent } from './tables/taxonomy-table/taxonomy-table.component';
 import { GeospatialTableComponent } from './tables/geospatial-table/geospatial-table.component';
-import { AdditionalPropertiesTableComponent } from './tables/additional-properties-table/additional-properties-table.component';
 import { SpeciesMapTableComponent } from './tables/species-map-table/species-map-table.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { MatListModule} from '@angular/material';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    NotesComponent,
     PictureComponent,
     HomeComponent,
     MapComponent,
@@ -43,8 +41,8 @@ import { SpeciesMapTableComponent } from './tables/species-map-table/species-map
     EventTableComponent,
     TaxonomyTableComponent,
     GeospatialTableComponent,
-    AdditionalPropertiesTableComponent,
-    SpeciesMapTableComponent
+    SpeciesMapTableComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +52,10 @@ import { SpeciesMapTableComponent } from './tables/species-map-table/species-map
     BrowserAnimationsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatListModule
   ],
-  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy}, NavService, NotesService],
+  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy}, NavService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

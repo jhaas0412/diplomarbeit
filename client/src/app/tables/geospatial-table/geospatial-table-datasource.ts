@@ -3,15 +3,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { ProfileTableItem } from 'src/app/models/ProfileTableItem';
+import { Species } from 'src/app/models/Species';
 
-// TODO: Replace this with your own data model type
-export interface GeospatialTableItem {
-  description: string;
-  value: string;
-}
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: GeospatialTableItem[] = [
+const EXAMPLE_DATA: ProfileTableItem[] = [
   {description: 'Data partner', value: 'Hydrogen'},
   {description: 'Data partner', value: 'Hydrogen'},
   {description: 'Data partner', value: 'Hydrogen'},
@@ -24,12 +21,16 @@ const EXAMPLE_DATA: GeospatialTableItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class GeospatialTableDataSource extends DataSource<GeospatialTableItem> {
-  data: GeospatialTableItem[] = EXAMPLE_DATA;
+export class GeospatialTableDataSource extends DataSource<ProfileTableItem> {
+  data: ProfileTableItem[] = EXAMPLE_DATA;
+  tabledata: ProfileTableItem[];
 
+  speciesdata: any;
+  species: Species;
 
-  constructor() {
+  constructor(private tableData: ProfileTableItem[]) {
     super();
+    this.tableData = tableData;
   }
 
   /**
@@ -37,17 +38,22 @@ export class GeospatialTableDataSource extends DataSource<GeospatialTableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<GeospatialTableItem[]> {
+  connect(): Observable<ProfileTableItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
+
     const dataMutations = [
-      observableOf(this.data)
+      observableOf(this.tableData)
     ];
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.data;
+      return this.tableData;
     }));
   }
 
+  /**
+   *  Called when the table is being destroyed. Use this function, to clean up
+   * any open connections or free any held resources that were set up during connect.
+   */
   disconnect() {}
 }

@@ -3,15 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { ProfileComponent } from 'src/app/profile/profile.component';
+import { ProfileTableItem } from 'src/app/models/ProfileTableItem';
+import { Species } from 'src/app/models/Species';
 
-// TODO: Replace this with your own data model type
-export interface TaxonomyTableItem {
-  description: string;
-  value: string;
-}
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: TaxonomyTableItem[] = [
+const EXAMPLE_DATA: ProfileTableItem[] = [
   {description: 'Data partner', value: 'Hydrogen'},
   {description: 'Data partner', value: 'Hydrogen'},
   {description: 'Data partner', value: 'Hydrogen'},
@@ -24,11 +22,16 @@ const EXAMPLE_DATA: TaxonomyTableItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class TaxonomyTableDataSource extends DataSource<TaxonomyTableItem> {
-  data: TaxonomyTableItem[] = EXAMPLE_DATA;
+export class TaxonomyTableDataSource extends DataSource<ProfileTableItem> {
+  data: ProfileTableItem[] = EXAMPLE_DATA;
+  tabledata: ProfileTableItem[];
 
-  constructor() {
+  speciesdata: any;
+  species: Species;
+
+  constructor(private tableData: ProfileTableItem[]) {
     super();
+    this.tableData = tableData;
   }
 
   /**
@@ -36,15 +39,16 @@ export class TaxonomyTableDataSource extends DataSource<TaxonomyTableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<TaxonomyTableItem[]> {
+  connect(): Observable<ProfileTableItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
+
     const dataMutations = [
-      observableOf(this.data)
+      observableOf(this.tableData)
     ];
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.data;
+      return this.tableData;
     }));
   }
 

@@ -8,22 +8,28 @@
 </head>
 
 <div class="container-fluid container">
-  <div class="row justify-content-center" style="background-color: darkgrey; height: 20%;">
-    <div class="col-sm-9" style="background-color:lightgray;">
+  <div class="row justify-content-center" style="height: 20%;">
+    <div class="col-sm-9" style="background-color:lightgray; border: 1px solid darkgrey">
       <div class="col-sm-9" style="height: 30%; margin-top: 50px;">
         <input type="text" value="{{searched}}" class="search-input" style="height: 70%; width: 75%;" #input>
-        <button style="height: 70%; width: 15%; margin-left: 3px;">Search</button>
+        <button style="height: 70%; width: 15%; margin-left: 3px;">Suche</button>
       </div>
     </div>
   </div>
   <div class="row justify-content-center" style="height: 80%;">
-    <div class="col-sm-9" style="background-color:white;">
+    <div class="col-sm-9" style="background-color:white; border: 1px solid darkgrey">
       <mat-list>
-        <ng-container *ngFor="let species of speciesList">
-          <mat-list-item> {{species.vernacularName}} </mat-list-item>
+        <ng-container *ngFor="let species of speciesList | slice: lowValue : highValue">
+          <mat-list-item style="margin-left: 5%;">
+            <p mat-line style="font-weight:bold;">{{species.scientificName}} | {{species.vernacularName}}</p>
+            <p mat-line>{{species.dataResourceUid}}</p>
+           </mat-list-item>
           <mat-divider></mat-divider>
           </ng-container>
       </mat-list>
     </div>
+      <mat-paginator style="height: 7%; float: right;" [length]="speciesList.length" [pageSize]="pageSize"
+      (page)="pageEvent = getPaginatorData($event)">
+      </mat-paginator>
   </div>
 </div>

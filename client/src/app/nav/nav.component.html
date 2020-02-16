@@ -1,12 +1,16 @@
 <header>
-  <div class="container">
-    <a routerLink="/" class="logo"><img src="images/logo.png"/></a>
+  <div class="inside-header">
+    <div class="logo-container">
+      <a routerLink="/">
+        <img src="images/Logo-Biodiversitaets-Atlas.png" class="img-fluid" width="230"/>
+      </a>
+    </div>
     <nav>
       <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/search">Suche</a></li>
-        <li><a routerLink="/map">Map</a></li>
-        <li><a routerLink="/profil">Profil</a></li>
+        <li><a routerLinkActive="active" [routerLink]="['home']">Home</a></li>
+        <li><a routerLinkActive="active" [routerLink]="['search']">Suche</a></li>
+        <li><a routerLinkActive="active" [routerLink]="['map']">Map</a></li>
+        <li><a routerLinkActive="active" [routerLink]="['profil']">Profil</a></li>
       </ul>
     </nav>
   </div>

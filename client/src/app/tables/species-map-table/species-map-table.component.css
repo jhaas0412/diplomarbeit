@@ -2,3 +2,19 @@
   width: 100%;
 }
 
+.map-table{
+  width: 100%;
+  margin-right: 0%;
+  text-align: center;
+  box-shadow: none;
+}
+
+th {
+  /* Sorry aber Bootstrap laesst nichts anderes zu*/
+  vertical-align: middle!important;
+}
+
+td {
+  /* Sorry aber Bootstrap laesst nichts anderes zu*/
+  padding: 10px!important;
+}

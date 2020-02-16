@@ -3,29 +3,18 @@
 }
 
 .map-table{
-  width: 70%;
+  width: 100%;
   margin-right: 0%;
   text-align: center;
+  box-shadow: none;
 }
 
-.highLight{
-  background: yellow;
+th {
+  /* Sorry aber Bootstrap laesst nichts anderes zu*/
+  vertical-align: middle!important;
 }
 
-.mat-header{
-  text-align: center;
-}
-
-.mat-column-speciesCount{
-  border-right: 1px solid lightgrey;
-  align-self: stretch;
-}
-
-.mat-column-species{
-  padding-left: 3%;
-}
-
-.mat-row:hover {
-  border-color: gray;
-  background: rgb(161, 147, 147);
+td {
+  /* Sorry aber Bootstrap laesst nichts anderes zu*/
+  padding: 10px!important;
 }
